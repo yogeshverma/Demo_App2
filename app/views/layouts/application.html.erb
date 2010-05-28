@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- This file is to create the the structural skeleton and fill it with the contents.
+This would also eradicate the duplication of view from other web pages
+
+
+We need to initialise the Facebook Connect on every page. This consists of 3 things:
+
+   1. adding a namespace declaration for FBML
+   2. adding the Facebook Connect Javascript
+   3. initialising the Javascript
+-->
+
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title><%= title %></title>
+		
+		<%# Use of partial The effect of this line is to look for a file called app/views/layouts/ stylesheets.html.erb,
+		evaluate its contents, and insert the results into the view. 
+		underscore is the universal convention for naming partials, and among other things makes it possible to identify all the partials in a directory at a glance.
+		%>
+		
+		<%= render 'layouts/stylesheets' %>	
+		
+		<%= javascript_include_tag :defaults%>
+	</head>
+	<body>
+		<div class="container">
+			<%= fb_connect_javascript_tag %>
+			<%= init_fb_connect "XFBML"%>
+			
+			<%= render 'layouts/header' %>
+
+			<div id="content" class="round">
+				<% flash.each do |key, value| %>
+					<div class="flash <%= key %>"><%= value %></div>
+				<% end %>
+				<%= yield %>
+			</div>
+
+			
+			<%= render 'layouts/footer' %>
+
+
+
+			<% if ENV['RAILS_ENV'] == 'production' %>
+				<%= javascript_include_tag 'prototype' %>
+
+					Show Debug Info &#10162;
+
+						<%= debug session %>
+						<%= debug params %>		                
+
+			<% end %>
+		</div>
+</body>
+
+</html>

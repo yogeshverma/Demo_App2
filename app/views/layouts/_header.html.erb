@@ -1,0 +1,26 @@
+<div id="header" class="round">
+
+			<%# The image has been copied in public/images %>
+			<% logo = image_tag("ArtQuestDemo.png", :alt => "Art Quest App", :class => "round") %>
+			
+			<%# The following code will interpret as <img alt="Art Quest App" class="round" src="/images/ArtQuestDemo.png" /> %>
+			<%= link_to logo, root_path %>
+			
+			<ul class="navigation round">
+			
+				<%# This list uses the Rails helper link to (API link) to create links %>
+				<%# the first argument is the link text, while the second is the URL.%>
+				<%# The URL is defined in rotes.rb %>
+			
+				<li><%= link_to "Home", root_path %></li>
+				<% if logged_in? %>
+					<li><%= link_to "Profile", current_user %></li>
+				<% end %>
+				<li><%= link_to "Help", help_path %></li>
+				<% if logged_in? %>
+					<li><%= link_to "Sign out", logout_path, :method => :delete %></li>
+				<% else %>
+					<li><%= link_to "Sign in", login_path %></li>
+				<% end %>
+			</ul>
+</div>

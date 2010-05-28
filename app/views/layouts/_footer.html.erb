@@ -1,0 +1,15 @@
+<div id="footer">
+	<ul class="navigation round">
+		
+		<%# about_path and contact_path are URLs defined in route.rb file 
+		This way the code has a more transparent meaning, and it’s also more flexible since we can change the
+		definition of about path and have the URL change everywhere about path is used.
+		%>
+	
+		<li><%= link_to "About", about_path %></li>
+		<li><%= link_to "Contact", contact_path %></li>
+		<li><a href="http://www.lab247.com/">News</a></li>
+		<li><a href="http://www.lab247.com/">Watch Art Quest Video</a></li>
+		
+	</ul>
+</div>

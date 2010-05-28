@@ -1,0 +1,54 @@
+<h4>Start sharing and discovering public art with a few simple steps...</h4>
+<% @user.password = @user.password_confirmation = nil %>
+
+<%= params[:mc] %>
+
+<%= error_messages_for :user %>
+<% form_for :user, :url => users_path,  :html => { :multipart => true } do |f| -%>	
+
+	<% if @facebook_session.nil? %>
+		<p>Please fill out the form below. Or "Connect with Facebook" to make sign up using your Facebook Account.</p>
+		<%= fb_login_button('window.location = "/users/link_user_accounts";')%>
+	<% end -%>
+	
+	<% if !params[:mc].nil? %>
+		<%= f.text_field :parenttoken, :value =>params[:mc] %>
+	<%end -%>
+	
+	<p><%= label_tag 'first_name' %><br/>
+	<%= f.text_field :first_name, :value => @user.first_name  %></p>	
+	
+	<p><%= label_tag 'last_name' %><br/>
+	<%= f.text_field :last_name, :value => @user.last_name  %></p>
+
+	<p><%= label_tag 'login' %><br/>
+	<%= f.text_field :login %></p>
+
+	<p><%= label_tag 'email' %><br/>
+	<%= f.text_field :email %></p>
+
+	<p><%= label_tag 'password' %><br/>
+	<%= f.password_field :password %></p>
+
+	<p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
+	<%= f.password_field :password_confirmation %></p>
+	
+	<p><%= f.label :birthday %><br />
+	<%= f.date_select :birthday, :start_year=>1900 %>
+
+	<p><%= f.label :gender %><br />
+	<%= select_tag "gender", options_for_select([ "Female", "Male", "None of Your Bidness" ], "Female") %>
+	
+	<p><%= f.label :mobilephone %><br />
+	<%= f.country_select :country, ["United States"] %>
+	<%= f.text_field :mobilephone %></p>
+	
+	<% if @facebook_session.nil? %>
+		<p><%= f.label 'Add profile photo' %><br />
+		<%= f.file_field :avatar %></p>
+	<% end -%>
+	
+	<p><%= submit_tag 'Sign up' %></p>
+
+	
+<% end -%>
